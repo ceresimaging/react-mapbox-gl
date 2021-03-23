@@ -225,6 +225,8 @@ export default class Layer extends React.Component<Props> {
 
     if (!map.getLayer(id)) {
       map.addLayer(layer, before);
+    } else if (before) {
+      map.moveLayer(id, before);
     }
 
     (Object.entries(eventToHandler) as Array<
