@@ -226,10 +226,14 @@ export default class Layer extends React.Component<Props> {
     }
 
     if (!map.getLayer(id)) {
-      if (DEBUG_ZORDER) console.log(`%c map.addLayer(${layer.id}, ${before})`, 'background: #222; color: #bada55');
+      if (DEBUG_ZORDER) {
+        console.log(`%c map.addLayer(${layer.id}, ${before})`, 'background: #222; color: #bada55');
+      }
       map.addLayer(layer, before);
     } else if (before) {
-      if (DEBUG_ZORDER) console.log(`map.moveLayer(${id}, ${before})`);
+      if (DEBUG_ZORDER) {
+        console.log(`map.moveLayer(${id}, ${before})`);
+      }
       map.moveLayer(id, before);
     }
 
