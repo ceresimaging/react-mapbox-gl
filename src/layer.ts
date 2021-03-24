@@ -103,6 +103,8 @@ const eventToHandler: EventToHandlersType = {
   click: 'onClick'
 };
 
+const DEBUG_ZORDER = false;
+
 export default class Layer extends React.Component<Props> {
   public static defaultProps = {
     type: 'symbol' as 'symbol',
@@ -224,20 +226,20 @@ export default class Layer extends React.Component<Props> {
     }
 
     if (!map.getLayer(id)) {
-      console.log(`map.addLayer(${layer.id}, ${before})`);
+      if (DEBUG_ZORDER) console.log(`%c map.addLayer(${layer.id}, ${before})`, 'background: #222; color: #bada55');
       map.addLayer(layer, before);
     } else if (before) {
-      console.log(`map.moveLayer(${id}, ${before})`);
+      if (DEBUG_ZORDER) console.log(`map.moveLayer(${id}, ${before})`);
       map.moveLayer(id, before);
-    } else {
-      console.log(`map.noneOfTheAbove(${id})`);
     }
 
-    console.log('Layer order is:');
-    for (const yo of map.getStyle().layers as MapboxGL.Layer[]) {
-      console.log(` - ${yo.id}`);
+    if (DEBUG_ZORDER) {
+      console.log('Layer order is:');
+      for (const yo of map.getStyle().layers as MapboxGL.Layer[]) {
+        console.log(` - ${yo.id}`);
+      }
+      console.log('');
     }
-    console.log('');
 
     (Object.entries(eventToHandler) as Array<
       [keyof EventToHandlersType, keyof LayerEvents]
